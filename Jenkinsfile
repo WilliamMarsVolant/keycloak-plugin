@@ -3,9 +3,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                //echo 'Building...'
-                // echo 'Adding settings file'
                 configFileProvider([configFiles(fileID: 'd1319e82-e302-446b-8e66-118dd2ee223f', variable: 'MVN_SETTINGS_FILE')]) {
+                    echo 'Building...'
+                    echo 'Adding settings file'
                     echo 'Running maven build'
                     sh 'mvn verify'
                 }
@@ -13,15 +13,13 @@ pipeline {
         }
         stage('Test') {
             steps {
-
+                echo 'Testing...'
             }
-            // echo 'Testing...'
         }
         stage('Deploy') {
             steps {
-                
+                echo 'Deploying...'
             }
-            // echo 'Deploying...'
         }
     }
 }
