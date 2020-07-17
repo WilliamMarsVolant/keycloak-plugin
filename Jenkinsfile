@@ -22,16 +22,14 @@ pipeline {
         }
         stage('Test') {
             environment {
-                scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                sonarScanner = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
             }
-
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
+                withSonarQubeEnv('Sonarqube Di2e Server') {
+                    sh '${sonarScanner}/bin/sonar-scanner'
                 }
-
-                timeout (time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: false
                 }
             }
         }
