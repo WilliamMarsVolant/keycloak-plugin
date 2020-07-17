@@ -1,8 +1,23 @@
-// Builds a module using https://github.com/jenkins-infra/pipeline-library
-// Requirements:
-//   - agents with label 'linux' and 'windows'
-//   - tools with label 'jdk8' and 'mvn'
-//   - latest Pipeline plugins, 'Timestamper' plugin
-//   - recommended to use this Jenkinsfile with 'Multibranch Pipeline' plugin
-
-buildPlugin(configurations: buildPlugin.recommendedConfigurations())
+pipelien {
+    agent {
+        node {
+            label 'docker'
+        }
+    }
+    stages {
+        stage('Build') {
+            echo 'Building...'
+            echo 'Adding settings file'
+            configFileProvider([configFiles(fileID: 'd1319e82-e302-446b-8e66-118dd2ee223f', variable: 'MVN_SETTINGS_FILE')]) {
+                echo 'Running maven build'
+                sh 'mvn verify'
+            }
+        }
+        stage('Test') {
+            echo 'Testing...'
+        }
+        stage('Deploy') {
+            echo 'Deploying...'
+        }
+    }
+}
