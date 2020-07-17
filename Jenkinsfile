@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                configFileProvider([configFile(fileID: 'd1319e82-e302-446b-8e66-118dd2ee223f', variable: 'MVN_SETTINGS_FILE')]) {
+                configFileProvider([configFile(fileId: 'd1319e82-e302-446b-8e66-118dd2ee223f', variable: 'MVN_SETTINGS_FILE')]) {
                     echo 'Building...'
                     echo 'Adding settings file'
                     echo 'Running maven build'
