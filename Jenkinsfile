@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Test') {
             environment {
-                scannerHome = tool 'SonarQubeScanner'
+                scannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
             }
 
             steps {
