@@ -26,7 +26,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('Sonarqube Di2e Server') {
-                    sh '${sonarScanner}/bin/sonar-scanner'
+                    sh '${sonarScanner}/bin/sonar-scanner -X'
                 }
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: false
