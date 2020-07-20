@@ -13,19 +13,18 @@ pipeline {
         stage('MavenBuild') {
             steps {
                 configFileProvider([configFile(fileId: 'd1319e82-e302-446b-8e66-118dd2ee223f', variable: 'MVN_SETTINGS_FILE')]) {
-                    echo 'Building...'
-                    echo 'Adding settings file'
-                    echo 'Running maven build'
+                    echo 'Building with Maven'
                     sh 'mvn package'
                 }
             }
         }
-        stage('SonarQubeAnalysis') {
+        stage('SonarQube Analysis') {
             environment {
                 sonarScanner = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
             }
             steps {
                 withSonarQubeEnv('Sonarqube Di2e Server') {
+                    echo 'Running SonarQube Analysis'
                     sh '${sonarScanner}/bin/sonar-scanner'
                 }
                 timeout(time: 5, unit: 'MINUTES') {
@@ -52,7 +51,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'mvn deploy:deploy-file -DgneratePom=false -DrepoisotryId=nexus -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/ -DpomFile=pom.xml -Dfile=target/keycloak.jar'
+                echo 'Deploying to Nexus'
+                sh 'mvn deploy:deploy-file -DgneratePom=false -DrepoisotryId=nexus -DrepositoryId=maven-public -DpomFile=pom.xml -Dfile=target/keycloak.jar'
             }
         }
     }
