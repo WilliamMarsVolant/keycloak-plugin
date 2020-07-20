@@ -51,8 +51,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying to Nexus'
-                sh 'mvn deploy:deploy-file -DgneratePom=false -DrepositoryId=mavenPublic -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/ -DpomFile=pom.xml -Dfile=target/keycloak.jar'
+                configFileProvider([configFile(fileId: 'd1319e82-e302-446b-8e66-118dd2ee223f', variable: 'MVN_SETTINGS_FILE')]) {
+                    echo 'Deploying to Nexus'
+                    sh 'mvn deploy:deploy-file -DgneratePom=false -DrepositoryId=mavenPublic -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/ -DpomFile=pom.xml -Dfile=target/keycloak.jar'
+                }
             }
         }
     }
