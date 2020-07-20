@@ -35,11 +35,19 @@ pipeline {
 
             }
             post {
-                failure {
-                    mail to: william.mars@di2e.net, subject: 'The Pipeline failed :('
+                unstable {
+                    emailext(
+                        subject: "SonarQubed quality gate failed Build: ${env.BUILD_ID}",
+                        body: "Job Name: ${env.JOB_NAME} \nBuild Number: ${env.BUILD_NUMBER}",
+                        to:"william.mars@di2e.net"
+                    )
                 }
                 success {
-                    mail to: william.mars@di2e.net, subject: 'SonarQube succeeded'
+                    emailext(
+                        subject: "SonarQubed quality gate PASSED Build: ${env.BUILD_ID}",
+                        body: "Job Name: ${env.JOB_NAME} \nBuild Number: ${env.BUILD_NUMBER}",
+                        to:"william.mars@di2e.net"
+                    )
                 }
             }
         }
