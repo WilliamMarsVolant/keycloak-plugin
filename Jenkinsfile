@@ -17,7 +17,7 @@ pipeline {
                     echo 'Adding settings file'
                     echo 'Running maven build'
                     sh 'mvn clean'
-                    sh 'mvn build'
+                    sh 'mvn compile'
                 }
             }
         }
