@@ -37,7 +37,7 @@ pipeline {
         }
         post {
             failure {
-                mail to: william.mars@di2e.net, subject: 'SonarQube failed'
+                mail to: william.mars@di2e.net, subject: 'The Pipeline failed :('
             }
             success {
                 mail to: william.mars@di2e.net, subject: 'SonarQube succeeded'
