@@ -52,7 +52,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying to Nexus'
-                sh 'mvn deploy:deploy-file -DgneratePom=false -DrepositoryId=maven-public -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Docker/ -DpomFile=pom.xml -Dfile=target/keycloak.jar'
+                sh 'mvn deploy:deploy-file -DgneratePom=false -DrepositoryId=maven-public -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/ -DpomFile=pom.xml -Dfile=target/keycloak.jar'
             }
         }
     }
