@@ -113,8 +113,6 @@ public class KeycloakSecurityRealm extends AbstractPasswordBasedSecurityRealm {
 	private transient KeycloakDeployment keycloakDeployment;
 
 	private transient RefreshFilter filter;
-	
-	public int unused_var;
 
 	private String keycloakJson = "";
 	private String keycloakIdp = "";

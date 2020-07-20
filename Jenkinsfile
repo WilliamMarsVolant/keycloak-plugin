@@ -37,7 +37,7 @@ pipeline {
             post {
                 failure {
                     emailext(
-                        subject: "SonarQubed quality gate failed Build: ${env.BUILD_ID}",
+                        subject: "SonarQubed quality gate FAILED Build: ${env.BUILD_ID}",
                         body: "Job Name: ${env.JOB_NAME} \nBuild Number: ${env.BUILD_NUMBER}",
                         to:"william.mars@di2e.net"
                     )
