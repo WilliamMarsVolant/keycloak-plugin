@@ -10,18 +10,17 @@ pipeline {
         jdk 'JDK 8u202' 
     }
     stages {
-        stage('Build') {
+        stage('MavenBuild') {
             steps {
                 configFileProvider([configFile(fileId: 'd1319e82-e302-446b-8e66-118dd2ee223f', variable: 'MVN_SETTINGS_FILE')]) {
                     echo 'Building...'
                     echo 'Adding settings file'
                     echo 'Running maven build'
-                    sh 'mvn clean'
-                    sh 'mvn compile'
+                    sh 'mvn package'
                 }
             }
         }
-        stage('Test') {
+        stage('SonarQubeAnalysis') {
             environment {
                 sonarScanner = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
             }
