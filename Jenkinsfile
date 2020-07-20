@@ -26,7 +26,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('Sonarqube Di2e Server') {
-                    sh '${sonarScanner}/bin/sonar-scanner -X'
+                    sh '${sonarScanner}/bin/sonar-scanner'
                 }
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
@@ -52,7 +52,14 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying...'
+                sh 'mvn deploy:deploy-file -DgneratePom=false -DrepoisotryId=nexus -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/ -DpomFile=pom.xml -Dfile=target/keycloak.jar'
+            }
+            post {
+                failure {
+                    subject: "Deployment FAILED Build: ${env.BUILD_ID}",
+                        body: "Job Name: ${env.JOB_NAME} \nBuild Number: ${env.BUILD_NUMBER}",
+                        to:"william.mars@di2e.net"
+                }
             }
         }
     }
