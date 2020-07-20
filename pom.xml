@@ -20,14 +20,6 @@
 		<url>https://issues.jenkins-ci.org/</url>
 	</issueManagement>
 
-	<distributionManagement>
-		<repository>
-			<id>maven-public</id>
-			<name>public maven repo</name>
-			<url>https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/</url>
-		</repository>
-	</distributionManagement>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
