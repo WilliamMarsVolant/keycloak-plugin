@@ -30,8 +30,17 @@ pipeline {
                     sh '${sonarScanner}/bin/sonar-scanner -X'
                 }
                 timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false
+                    waitForQualityGate abortPipeline: true
                 }
+
+            }
+        }
+        post {
+            failure {
+                mail to: william.mars@di2e.net, subject: 'SonarQube failed'
+            }
+            success {
+                mail to: william.mars@di2e.net, subject: 'SonarQube succeeded'
             }
         }
         stage('Deploy') {
