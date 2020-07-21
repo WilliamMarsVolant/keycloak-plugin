@@ -57,6 +57,7 @@ pipeline {
                         -Dfile=target/keycloak.jar \
                         -DrepositoryId=mavenPublic \
                         -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/
+                        '''
             }
         }
     }
