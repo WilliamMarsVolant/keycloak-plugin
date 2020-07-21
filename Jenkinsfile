@@ -50,18 +50,6 @@ pipeline {
         stage('Nexus Upload') {
             steps {
                     echo 'Deploying to Nexus'
-                    // sh 'mvn deploy:deploy-file -DgneratePom=false -DrepositoryId=mavenPublic -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/ -DpomFile=pom.xml -Dfile=target/keycloak.jar'
-                    
-                    // sh '''
-                    //     mvn deploy:deploy-file -DgroupId=org.jboss \
-                    //     -DartifactId=keycloakPluginWilliam \
-                    //     -Dversion=4.0 \
-                    //     -Dpackageing=.jar \
-                    //     -Dfile=target/keycloak.jar \
-                    //     -DrepositoryId=mavenPublic \
-                    //     -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/
-                    //     '''
-
                     nexusArtifactUploader (
                         nexusVersion: 'nexus3',
                         protocol: 'https',
