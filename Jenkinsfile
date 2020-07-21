@@ -62,21 +62,21 @@ pipeline {
                     //     -Durl=https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/
                     //     '''
 
-                    nexusArtifactUploader {
-                        nexusVersion: 'nexus3'
-                        protocol: 'https'
-                        nexusUrl: 'https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/'
-                        groupId: 'org.jboss'
-                        version: '4.0'
-                        repository: 'mavenPublic'
-                        credentialsId: '687110ca-29bc-48c6-b35a-50b6040f1260	'
-                        artifact {
-                            artifactID: 'keycloak-plugin'
-                            type: 'jar'
-                            classifier: 'debug'
-                            file: 'target/keycloak.jar'
-                        }
-                    }
+                    nexusArtifactUploader (
+                        nexusVersion: 'nexus3',
+                        protocol: 'https',
+                        nexusUrl: 'https://nexus.di2e.net/nexus3/repository/Public_DI2E_Maven/',
+                        groupId: 'org.jboss',
+                        version: '4.0',
+                        repository: 'mavenPublic',
+                        credentialsId: '687110ca-29bc-48c6-b35a-50b6040f1260',
+                        artifacts: [
+                            [artifactID: 'keycloak-plugin',
+                            type: 'jar',
+                            classifier: 'debug',
+                            file: 'target/keycloak.jar']
+                        ]
+                    )
             }
         }
     }
